@@ -1,5 +1,6 @@
 package com.blend.douyinproject
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blend.douyinproject.databinding.ActivityMainBinding
@@ -12,6 +13,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.helloWorld.text = "Blend,Flutter"
+        binding.helloWorld.text = "Hello,Flutter module"
+        binding.helloWorld.setOnClickListener {
+            startActivity(Intent(this, BlendFlutterActivity::class.java))
+        }
     }
 }
