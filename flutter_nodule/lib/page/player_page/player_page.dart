@@ -57,19 +57,19 @@ class _PlayerPageState extends State<PlayerPage> {
   _saveVideo(String url) async {
     Uri uri = Uri.parse(url);
     String name = uri.pathSegments.last;
-    print('MOOC-save video: $url');
+    print('FlutterLog-save video: $url');
 
     var dir = await getExternalStorageDirectory();
 
     String savePath = "${dir?.path}/$name";
 
-    print('MOOC-savePath: $savePath');
+    print('FlutterLog-savePath: $savePath');
 
     // 开启下载，将url下载到的视频保存到savePath当中
     var result = await Dio().download(url, savePath, onReceiveProgress: (count, total) {
       var progress = '${(count / total * 100).toInt()}%';
-      print('MOOC- progress: $progress');
+      print('FlutterLog- progress: $progress');
     });
-    print('MOOC- result: $result');
+    print('FlutterLog- result: $result');
   }
 }

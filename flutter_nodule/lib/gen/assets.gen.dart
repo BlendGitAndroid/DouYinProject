@@ -15,8 +15,8 @@ class $AssetImageGen {
   /// File path: asset/image/add.png
   AssetGenImage get add => const AssetGenImage('asset/image/add.png');
 
-  /// File path: asset/image/avatar.jpg
-  AssetGenImage get avatar => const AssetGenImage('asset/image/avatar.jpg');
+  /// File path: asset/image/avatar.png
+  AssetGenImage get avatar => const AssetGenImage('asset/image/avatar.png');
 
   /// File path: asset/image/clock.png
   AssetGenImage get clock => const AssetGenImage('asset/image/clock.png');
@@ -24,9 +24,9 @@ class $AssetImageGen {
   /// File path: asset/image/close.png
   AssetGenImage get close => const AssetGenImage('asset/image/close.png');
 
-  /// File path: asset/image/default_photo.jpg
+  /// File path: asset/image/default_photo.png
   AssetGenImage get defaultPhoto =>
-      const AssetGenImage('asset/image/default_photo.jpg');
+      const AssetGenImage('asset/image/default_photo.png');
 
   /// File path: asset/image/edit.png
   AssetGenImage get edit => const AssetGenImage('asset/image/edit.png');

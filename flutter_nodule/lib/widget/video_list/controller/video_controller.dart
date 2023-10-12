@@ -17,9 +17,9 @@ abstract class VideoController {
 
   Future<void> init() async {
     // 首先判断一级缓存——即内存中是否有数据
-    print('MOOC- init video controller');
+    print('FlutterLog- init video controller');
     if (dataList == null) {
-      print('MOOC- model is null');
+      print('FlutterLog- model is null');
       // 如果没有，则从二级/三级缓存查找
       dataList = await fetchVideoData();
     }
@@ -35,7 +35,7 @@ abstract class VideoController {
     var modelStr = sp.getString(spKey);
     if (modelStr != null && modelStr.isNotEmpty) {
       // 二级缓存中找到数据，直接使用
-      print('MOOC- 2/use sp data');
+      print('FlutterLog- 2/use sp data');
 
       var list = jsonDecode(modelStr) as List<dynamic>;
       // jsonDecode获取到的是“List<Map>”，需要转换成List<VideoModel>
@@ -47,7 +47,7 @@ abstract class VideoController {
       var list = jsonDecode(videoData) as List<dynamic>;
       var sp = await SharedPreferences.getInstance();
       sp.setString(spKey, videoData);
-      print('MOOC- 3/fetch data from server');
+      print('FlutterLog- 3/fetch data from server');
 
       return list.map((e) => VideoModel.fromJson(e)).toList();
     }

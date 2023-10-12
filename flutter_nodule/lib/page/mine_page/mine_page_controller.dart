@@ -18,19 +18,19 @@ class MinePageController extends GetxController {
 
   set avatarUrl(String url) => _avatarUrl.value = url;
 
-  final _name = '慕课网'.obs;
-  final _uid = '8888888'.obs;
+  final _name = 'BlendAndroid'.obs;
+  final _uid = '1059152860'.obs;
 
   String get name => _name.value;
 
-  String get uidDesc => '慕课号：${_uid.value}';
+  String get uidDesc => 'id：${_uid.value}';
 
   //模拟网络拉取
-  String get likeCount => '23万';
+  String get likeCount => '35万';
 
-  String get focusCount => '85224';
+  String get focusCount => '0';
 
-  String get followCount => '12334';
+  String get followCount => '123';
 
   Future<void> onTapBackground() async {
     var fileUrl = await router.push(name: MCRouter.photoPicker, arguments: {MCRouter.key_url: backgroundUrl});

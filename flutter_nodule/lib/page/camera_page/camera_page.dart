@@ -90,7 +90,7 @@ class _CameraPageStage extends State<CameraPage> {
                 var pickedFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
                 var path = pickedFile?.path;
                 if (path != null) {
-                  print('MOOC= upload picture: $path');
+                  print('FlutterLog= upload picture: $path');
                 }
               }),
         ),

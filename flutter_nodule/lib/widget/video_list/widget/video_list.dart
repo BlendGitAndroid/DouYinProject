@@ -34,7 +34,7 @@ class _VideoListState extends State<VideoList> {
                 crossAxisCount: 3, childAspectRatio: 0.75),
             itemCount: widget.controller.dataList?.length,
             itemBuilder: (context, index) {
-              // 实际羡慕中， 通过dateList[index]取出url
+              // 实际项目中， 通过dateList[index]取出url
               return GestureDetector(
                   child: widget.controller.dataList == null
                       ? Container() // 加载提示或者骨架屏
@@ -50,10 +50,12 @@ class _VideoListState extends State<VideoList> {
                                       Player()
                                         ..setLoop(0)
                                         ..setCommonDataSource(
-                                            widget.controller.dataList![index]
-                                                .url,
-                                            type: SourceType.net,
-                                            autoPlay: true),
+                                          widget
+                                              .controller.dataList![index].url,
+                                          type: SourceType.net,
+                                          autoPlay: false,
+                                          showCover: true,
+                                        ),
                                       fit: FijkFit.cover)),
                               Padding(
                                 padding:
