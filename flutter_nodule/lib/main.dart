@@ -19,7 +19,7 @@ String sdcardPath = '/storage/emulated/0/Android/data/com.example.mc/files';
 init() {
   // 初始化页面路由，获取Native传递的参数，放入路由表
   print('MOOC- init route is : ${window.defaultRouteName}');
-  router.push(name: window.defaultRouteName);
+  router.push(name: MCRouter.minePage);
 
   // 初始化sdcard目录
   getExternalStorageDirectory().then((value) {

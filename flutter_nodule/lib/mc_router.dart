@@ -87,7 +87,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
 
     switch (routeSettings.name) {
       case minePage:
-        page = MinePage();
+        page = const MinePage();
         break;
       case photoPicker:
         String? url;

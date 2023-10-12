@@ -20,7 +20,8 @@ class MinePage extends StatefulWidget {
   State<StatefulWidget> createState() => _MinePageState();
 }
 
-class _MinePageState extends State<MinePage> with SingleTickerProviderStateMixin {
+class _MinePageState extends State<MinePage>
+    with SingleTickerProviderStateMixin {
   static const image_height = 138.5;
 
   final _controller = Get.put(MinePageController());
@@ -50,30 +51,34 @@ class _MinePageState extends State<MinePage> with SingleTickerProviderStateMixin
                       width: double.infinity,
                       height: image_height,
                       child: GestureDetector(
-                          child: TImage(_controller.backgroundUrl, fit: BoxFit.cover),
-                          onTap: _controller.onTapBackground)),
+                          onTap: _controller.onTapBackground,
+                          child: TImage(_controller.backgroundUrl,
+                              fit: BoxFit.cover))),
                   // 资料页卡
                   Padding(
-                    padding: EdgeInsets.only(top: image_height - 4),
+                    padding: const EdgeInsets.only(top: image_height - 4),
                     child: Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xfffefdfd), borderRadius: BorderRadius.vertical(top: Radius.circular(8))),
+                        decoration: const BoxDecoration(
+                            color: Color(0xfffefdfd),
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(8))),
                         child: _buildCard()),
                   ),
                   // 头像
                   Padding(
-                      padding: EdgeInsets.only(top: 114, left: 19),
+                      padding: const EdgeInsets.only(top: 114, left: 19),
                       child: GestureDetector(
-                        child: Obx(() => TImage(_controller.avatarUrl, shape: Shape.CIRCLE, radius: 40)),
                         onTap: _controller.onTapAvatar,
+                        child: Obx(() => TImage(_controller.avatarUrl,
+                            shape: Shape.CIRCLE, radius: 40)),
                       ))
                 ]),
               ),
               bottom: TabBar(
-                  labelColor: Color(0xff151822),
-                  unselectedLabelColor: Color(0xff77767c),
+                  labelColor: const Color(0xff151822),
+                  unselectedLabelColor: const Color(0xff77767c),
                   controller: _tabController,
-                  tabs: [
+                  tabs: const [
                     Tab(text: '作品'),
                     Tab(text: '私密'),
                     Tab(text: '收藏'),
@@ -97,50 +102,60 @@ class _MinePageState extends State<MinePage> with SingleTickerProviderStateMixin
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 18),
+        const SizedBox(height: 18),
         // 赞、关注、粉丝
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SizedBox(width: 100),
+            const SizedBox(width: 100),
             Expanded(child: TextCount('获赞', _controller.likeCount)),
-            Container(width: 1, height: 33, color: Color(0xffe3e2e2)),
+            Container(width: 1, height: 33, color: const Color(0xffe3e2e2)),
             Expanded(child: TextCount('关注', _controller.focusCount)),
-            Container(width: 1, height: 33, color: Color(0xffe3e2e2)),
+            Container(width: 1, height: 33, color: const Color(0xffe3e2e2)),
             Expanded(child: TextCount('粉丝', _controller.followCount)),
           ],
         ),
         // 姓名
         Padding(
-          padding: EdgeInsets.only(top: 30, left: 19),
+          padding: const EdgeInsets.only(top: 30, left: 19),
           child: Obx(() => Text(
                 _controller.name,
-                style: TextStyle(
-                    color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold, decoration: TextDecoration.none),
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.none),
               )),
         ),
         // uid
         Padding(
-            padding: EdgeInsets.only(top: 5, left: 19),
+            padding: const EdgeInsets.only(top: 5, left: 19),
             child: Obx(() => Text(
                   _controller.uidDesc,
-                  style: TextStyle(color: Colors.black, fontSize: 11, decoration: TextDecoration.none),
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 11,
+                      decoration: TextDecoration.none),
                 ))),
         // 分割线
         Container(
           height: 1 / MediaQueryData.fromWindow(window).devicePixelRatio,
-          margin: EdgeInsets.only(left: 19, right: 16, top: 10, bottom: 12),
-          color: Color(0xffe1e1e3),
+          margin:
+              const EdgeInsets.only(left: 19, right: 16, top: 10, bottom: 12),
+          color: const Color(0xffe1e1e3),
         ),
         // 介绍编辑
         Container(
           height: 18,
-          padding: EdgeInsets.only(left: 16),
+          padding: const EdgeInsets.only(left: 16),
           child: Row(
             children: [
-              Text(
+              const Text(
                 '点击添加介绍，让大家认识你...',
-                style: TextStyle(color: Color(0xff72737a), fontSize: 12, decoration: TextDecoration.none),
+                style: TextStyle(
+                    color: Color(0xff72737a),
+                    fontSize: 12,
+                    decoration: TextDecoration.none),
               ),
               TImage(Assets.image.edit.path, height: 12)
             ],
@@ -148,14 +163,19 @@ class _MinePageState extends State<MinePage> with SingleTickerProviderStateMixin
         ),
         // +关注
         Padding(
-            padding: EdgeInsets.only(top: 18, left: 16, right: 16),
+            padding: const EdgeInsets.only(top: 18, left: 16, right: 16),
             child: Container(
-              decoration: BoxDecoration(color: Color(0xfffe2d54), borderRadius: BorderRadius.circular(4)),
-              child: Text('+ 关注',
-                  style: TextStyle(color: Color(0xfffbfbfc), fontSize: 15, decoration: TextDecoration.none)),
+              decoration: BoxDecoration(
+                  color: const Color(0xfffe2d54),
+                  borderRadius: BorderRadius.circular(4)),
               width: double.infinity,
               height: 36,
               alignment: Alignment.center,
+              child: const Text('+ 关注',
+                  style: TextStyle(
+                      color: Color(0xfffbfbfc),
+                      fontSize: 15,
+                      decoration: TextDecoration.none)),
             ))
       ],
     );
