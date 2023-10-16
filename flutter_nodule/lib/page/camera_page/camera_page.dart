@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../gen/assets.gen.dart';
 
 class CameraPage extends StatefulWidget {
+  const CameraPage({super.key});
+
   @override
   State<StatefulWidget> createState() => _CameraPageStage();
 }

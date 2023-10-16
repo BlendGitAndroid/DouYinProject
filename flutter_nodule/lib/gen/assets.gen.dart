@@ -41,12 +41,6 @@ class $AssetImageGen {
   /// File path: asset/image/gallery.png
   AssetGenImage get gallery => const AssetGenImage('asset/image/gallery.png');
 
-  /// File path: asset/image/img.png
-  AssetGenImage get img => const AssetGenImage('asset/image/img.png');
-
-  /// File path: asset/image/img_1.png
-  AssetGenImage get img1 => const AssetGenImage('asset/image/img_1.png');
-
   /// File path: asset/image/lock.png
   AssetGenImage get lock => const AssetGenImage('asset/image/lock.png');
 
