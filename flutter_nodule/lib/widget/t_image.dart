@@ -19,7 +19,7 @@ class TImage extends StatelessWidget {
     switch (shape) {
       case Shape.NORMAL:
         if (url.contains('asset')) {
-          return Image.asset(url, width: width, height: height, fit: fit);
+          return Image.asset(url, width: width, height: height, fit: BoxFit.cover);
         } else {
           return Image.file(File(url), width: width, height: height, fit: fit);
         }
@@ -35,8 +35,10 @@ class TImage extends StatelessWidget {
           height: radius != null ? radius! * 2 + borderWidth * 2 : null,
           decoration: BoxDecoration(
               image: DecorationImage(image: image, fit: BoxFit.cover),
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-              border: Border.all(color: Color(0xfffefdfd), width: borderWidth)),
+              // 创建一个半径为50的圆
+              borderRadius: const BorderRadius.all(Radius.circular(50)),
+              // 边框
+              border: Border.all(color: const Color(0xfffefdfd), width: borderWidth)),
         );
       default:
         if (url.contains('asset')) {

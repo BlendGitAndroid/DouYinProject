@@ -19,6 +19,7 @@ class PhotoPickerPage extends StatelessWidget {
     return Stack(
       children: [
         Align(
+            // 设置位置居中
             alignment: Alignment.center,
             child: GestureDetector(
               child: TImage(fileUrl, height: height, width: width),
@@ -27,21 +28,27 @@ class PhotoPickerPage extends StatelessWidget {
               },
             )),
         Align(
+            // 再次改变显示的位置
             alignment: Alignment.bottomCenter,
             child: Padding(
-                padding: EdgeInsets.only(bottom: 85),
+                padding: const EdgeInsets.only(bottom: 85),
                 child: GestureDetector(
                   child: Container(
                       alignment: Alignment.center,
-                      color: Color(0xff2626262),
+                      color: const Color(0xff2626262),
                       width: 190,
                       height: 36,
-                      child: Text('更换背景',
-                          style: TextStyle(color: Colors.white70, fontSize: 14, decoration: TextDecoration.none))),
+                      child: const Text('更换背景',
+                          style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 14,
+                              decoration: TextDecoration.none))),
                   onTap: () async {
-                    var pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+                    var pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
                     var path = pickedFile?.path;
                     if (path != null) {
+                      // 带上返回照片
                       router.popRoute(params: path);
                     }
                   },

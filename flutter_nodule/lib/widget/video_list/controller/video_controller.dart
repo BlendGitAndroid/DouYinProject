@@ -37,10 +37,12 @@ abstract class VideoController {
       // 二级缓存中找到数据，直接使用
       print('FlutterLog- 2/use sp data');
 
+      // 其实还是调用的是json.decode方法,将其转换为List
       var list = jsonDecode(modelStr) as List<dynamic>;
       // jsonDecode获取到的是“List<Map>”，需要转换成List<VideoModel>
       // List<Map> => List<VideoModel>
 
+      // map方法是将List中的每个元素都执行一遍方法，返回一个新的List
       return list.map((e) => VideoModel.fromJson(e)).toList();
     } else {
       // 二级缓存未找到数据，走三级缓存

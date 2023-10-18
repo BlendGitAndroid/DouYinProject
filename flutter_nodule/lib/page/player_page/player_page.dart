@@ -16,18 +16,13 @@ class PlayerPage extends StatefulWidget {
 }
 
 class _PlayerPageState extends State<PlayerPage> {
-  String version = 'null';
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     var player = Player();
     print('video url is :${widget.url}');
-    player.setCommonDataSource(widget.url, type: SourceType.net, autoPlay: true);
+    player.setCommonDataSource(widget.url,
+        type: SourceType.net, autoPlay: true);
+    // 通过FavoriteGesture包裹，实现双击点赞
     return FavoriteGesture(
         child: GestureDetector(
             onLongPress: () {
@@ -40,7 +35,9 @@ class _PlayerPageState extends State<PlayerPage> {
                       title: const Text('提示'),
                       content: const Text('确认下载本视频吗？'),
                       actions: <Widget>[
-                        TextButton(onPressed: () => Navigator.pop(context, 'cancel'), child: const Text('取消')),
+                        TextButton(
+                            onPressed: () => Navigator.pop(context, 'cancel'),
+                            child: const Text('取消')),
                         TextButton(
                             onPressed: () {
                               _saveVideo(widget.url);
@@ -66,7 +63,8 @@ class _PlayerPageState extends State<PlayerPage> {
     print('FlutterLog-savePath: $savePath');
 
     // 开启下载，将url下载到的视频保存到savePath当中
-    var result = await Dio().download(url, savePath, onReceiveProgress: (count, total) {
+    var result =
+        await Dio().download(url, savePath, onReceiveProgress: (count, total) {
       var progress = '${(count / total * 100).toInt()}%';
       print('FlutterLog- progress: $progress');
     });

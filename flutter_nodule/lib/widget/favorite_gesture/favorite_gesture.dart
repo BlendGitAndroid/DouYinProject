@@ -22,6 +22,7 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
   // temp表示最近的一次双击坐标
   Offset temp = Offset.zero;
 
+  // 将全局坐标转换为本地坐标
   Offset _globalToLocal(Offset global) {
     RenderBox renderBox = _key.currentContext?.findRenderObject() as RenderBox;
     return renderBox.globalToLocal(global);
@@ -35,7 +36,7 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
                   key: Key(e.toString()),
                   size: widget.size,
                   position: e,
-                  onAnimationComplete: () {
+                  onAnimationComplete: () { // 动画完成后，移除坐标
                     iconOffsets.remove(e);
                   },
                 ))
@@ -47,9 +48,11 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
           widget.child,
           iconStack,
         ]),
+        // 短时间内双击按下时回调，主要是根据这个回调获取坐标
         onDoubleTapDown: (details) {
           temp = _globalToLocal(details.globalPosition);
         },
+        // 双击
         onDoubleTap: () {
           // 添加坐标到集合中，触发一次重绘制。根据坐标集合来在不同的坐标上渲染出icon
           setState(() => iconOffsets.add(temp));
