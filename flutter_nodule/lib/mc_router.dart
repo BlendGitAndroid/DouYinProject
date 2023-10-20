@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_nodule/page/friend_page/friend_page.dart';
+import 'package:flutter_nodule/page/message_page/message_page.dart';
 import 'package:flutter_nodule/page/mine_page/mine_page.dart';
 
 import 'gen/assets.gen.dart';
@@ -22,6 +24,8 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
   static const String photoPicker = '/photo_picker';
   static const String playerPage = '/player';
   static const String cameraPage = '/camera';
+  static const String messagePage = '/message';
+  static const String friendPage = '/friend';
 
   static const String key = 'key';
   static const String value = 'value';
@@ -124,6 +128,12 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
         break;
       case cameraPage:
         page = const CameraPage();
+        break;
+      case messagePage:
+        page = const MessagePage();
+        break;
+      case friendPage:
+        page = const FriendPage();
         break;
       default:
         page = const Scaffold();

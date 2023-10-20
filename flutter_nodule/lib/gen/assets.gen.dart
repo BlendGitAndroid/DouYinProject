@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
 
@@ -47,25 +47,38 @@ class $AssetImageGen {
   /// File path: asset/image/play.png
   AssetGenImage get play => const AssetGenImage('asset/image/play.png');
 
+  /// File path: asset/image/review.png
+  AssetGenImage get review => const AssetGenImage('asset/image/review.png');
+
   /// File path: asset/image/rotate.png
   AssetGenImage get rotate => const AssetGenImage('asset/image/rotate.png');
-}
 
-class $AssetVideoGen {
-  const $AssetVideoGen();
+  /// File path: asset/image/setting.png
+  AssetGenImage get setting => const AssetGenImage('asset/image/setting.png');
 
-  /// File path: asset/video/video1.mp4
-  String get video1 => 'asset/video/video1.mp4';
-
-  /// File path: asset/video/video2.mp4
-  String get video2 => 'asset/video/video2.mp4';
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        add,
+        avatar,
+        clock,
+        close,
+        defaultPhoto,
+        edit,
+        flashOff,
+        flashOn,
+        gallery,
+        lock,
+        play,
+        review,
+        rotate,
+        setting
+      ];
 }
 
 class Assets {
   Assets._();
 
   static const $AssetImageGen image = $AssetImageGen();
-  static const $AssetVideoGen video = $AssetVideoGen();
 }
 
 class AssetGenImage {
@@ -123,6 +136,17 @@ class AssetGenImage {
       filterQuality: filterQuality,
       cacheWidth: cacheWidth,
       cacheHeight: cacheHeight,
+    );
+  }
+
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
     );
   }
 

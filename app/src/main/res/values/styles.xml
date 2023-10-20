@@ -2,10 +2,11 @@
 <resources>
 
     <style name="BottomButtonStyle">
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@color/black_50</item>
         <item name="android:layout_height">54dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/bottom_button_color</item>
     </style>
 

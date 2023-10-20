@@ -9,13 +9,16 @@ class VideoPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
     companion object {
+        // 同城
         const val PAGE_CITY = 0
+        // 关注
         const val PAGE_FOCUS = 1
+        // 推荐
         const val PAGE_RECOMMEND = 2
     }
 
     private val mFragments: SparseArray<FocusFragment> = SparseArray()
-    var mCurrentIndex = PAGE_FOCUS
+    private var mCurrentIndex = PAGE_FOCUS
 
     init {
         mFragments.put(PAGE_CITY, FocusFragment.newInstance())

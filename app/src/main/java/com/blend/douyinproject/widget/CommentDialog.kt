@@ -27,12 +27,16 @@ object CommentDialog {
 
             binding.commentCount.setOnClickListener {
                 binding.commentList.visibility = VISIBLE
+                binding.countLine.visibility = VISIBLE
+                binding.likeLine.visibility = GONE
                 binding.likeList.visibility = GONE
             }
 
             binding.likeCount.setOnClickListener {
                 binding.likeList.visibility = VISIBLE
+                binding.likeLine.visibility = VISIBLE
                 binding.commentList.visibility = GONE
+                binding.countLine.visibility = GONE
             }
 
             window?.attributes = window?.attributes?.apply {

@@ -26,7 +26,7 @@ class MainActivity : FragmentActivity() {
         VideoPageFragment()
     }
     private val friendFragment by lazy {
-        VideoPageFragment()
+        FlutterFragmentUtil.createFlutterFragment(this, "friend", "/friend")
     }
     private val messageFragment by lazy {
         FlutterFragmentUtil.createFlutterFragment(this, "message", "/message")

@@ -15,16 +15,12 @@ import com.blend.douyinproject.databinding.FragmentFocusPageBinding
 class FocusFragment : Fragment() {
 
     private lateinit var binding: FragmentFocusPageBinding
+    private var videoPosition = 0
 
     companion object {
 
         private const val TAG = "FocusFragment"
 
-        /**
-         * 创建首页Fragment
-         *
-         * @return 首页Fragment
-         */
         fun newInstance(): FocusFragment {
             val fragment = FocusFragment()
             val args = Bundle()
@@ -48,14 +44,22 @@ class FocusFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.focusRecycler.layoutManager = mLayoutManager
         binding.focusRecycler.adapter = mAdapter
-        binding.focusRecycler.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.focusRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 when (newState) {
                     SCROLL_STATE_IDLE -> {
-                        getCurrentVideoView()?.start()
+                        getCurrentVideoView()?.apply {
+                            videoPosition++
+                            if (videoPosition < 2) {
+                                setVideoPath("android.resource://" + context.packageName + "/" + R.raw.video2)
+                            } else {
+                                videoPosition = 0
+                                setVideoPath("android.resource://" + context.packageName + "/" + R.raw.video1)
+                            }
+                            start()
+                        }
                     }
                 }
             }
@@ -65,6 +69,11 @@ class FocusFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         getCurrentVideoView()?.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.focusRecycler.clearOnScrollListeners()
     }
 
     fun startVideo() {
