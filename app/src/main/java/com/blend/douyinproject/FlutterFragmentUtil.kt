@@ -7,11 +7,9 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin
 
 object FlutterFragmentUtil {
 
-    private const val HIDE_BOTTOM = "hideBottomBar"
     private const val CLOSE_CAMERA = "closeCamera"
     private const val TAG = "FlutterFragmentUtil"
 
@@ -19,21 +17,27 @@ object FlutterFragmentUtil {
         context: Context, name: String, initRoute: String = "/",
     ): FlutterFragment {
         val id = "${MainActivity.ENGINE_ID}_$name"
+        // 从缓存中获取FlutterEngine
         var flutterEngine = FlutterEngineCache.getInstance().get(id)
 
+        // 如果没有则新建一个FlutterEngine
         if (null == flutterEngine) {
             flutterEngine = FlutterEngine(context)
 
+            // 设置初始路由
             flutterEngine.navigationChannel.setInitialRoute(initRoute)
+
             flutterEngine.dartExecutor.executeDartEntrypoint(
+                // 创建默认的Dart入口点
                 DartExecutor.DartEntrypoint.createDefault()
             )
 
             FlutterEngineCache.getInstance().put(id, flutterEngine)
             setMethodChannels(context, flutterEngine)
         }
-        flutterEngine.plugins.add(SharedPreferencesPlugin())
-//        flutterEngine.plugins.add(VideoPlayerPlugin())
+
+        // 使用工厂方法 withCachedEngine() 实例化 FlutterFragment
+        // shouldAttachEngineToActivity：设置为true，允许 Flutter 和 Flutter 插件与 Activity 交互
         return FlutterFragment.withCachedEngine(id).shouldAttachEngineToActivity(true)
             .build() as FlutterFragment
     }
@@ -45,10 +49,6 @@ object FlutterFragmentUtil {
             Log.i(TAG, "method: ${call.method}, argument: ${call.arguments}")
 
             when (call.method) {
-                HIDE_BOTTOM -> {
-                    (context as MainActivity).hideBottomButton(call.argument<Boolean>("hide") == true)
-                }
-
                 CLOSE_CAMERA -> {
                     (context as MainActivity).closeCamera()
                 }

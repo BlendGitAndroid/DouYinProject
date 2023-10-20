@@ -98,15 +98,6 @@ class MainActivity : FragmentActivity() {
         }
     }
 
-    fun hideBottomButton(hide: Boolean) {
-        val visible = if (hide) GONE else VISIBLE
-        binding.btHome.visibility = visible
-        binding.btFriend.visibility = visible
-        binding.btAdd.visibility = visible
-        binding.btMessage.visibility = visible
-        binding.btMine.visibility = visible
-    }
-
     fun closeCamera() {
         Log.d(TAG, "close camera")
 
