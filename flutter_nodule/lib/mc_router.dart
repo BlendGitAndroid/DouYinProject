@@ -46,6 +46,8 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
     return Navigator(key: navigatorKey, pages: _pages, onPopPage: _onPopPage);
   }
 
+  // todo: 采用下面这种写法,navigatorKey.currentContext就不为Null,但是集成到主工程,导航就不起效果了
+  // final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   GlobalKey<NavigatorState> get navigatorKey => GlobalKey<NavigatorState>();
 
@@ -150,8 +152,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
 
   Future<bool> _confirmExit() async {
 
-    // todo:这里为Null为什么
-    if (navigatorKey == null || navigatorKey.currentContext == null) {
+    if (navigatorKey.currentContext == null) {
       return true;
     }
     // showDialog方法，用于打开对话框，参数context表示上下文，builder表示对话框构造器

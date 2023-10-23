@@ -56,11 +56,11 @@ class MainActivity : FragmentActivity() {
         binding.btMine.setOnClickListener { showPage(it) }
         binding.btAdd.setOnClickListener {
             Log.d(TAG, "Start camera fragment")
-            if (cameraFragment.isAdded) {
-                supportFragmentManager.beginTransaction().show(cameraFragment).commit()
+            if (cameraFragment!!.isAdded) {
+                supportFragmentManager.beginTransaction().show(cameraFragment!!).commit()
             } else {
                 // 添加至页面中
-                supportFragmentManager.beginTransaction().add(R.id.camera_container, cameraFragment)
+                supportFragmentManager.beginTransaction().add(R.id.camera_container, cameraFragment!!)
                     .commit()
             }
         }
@@ -89,7 +89,7 @@ class MainActivity : FragmentActivity() {
             binding.btMine.setTextColor(resources.getColor(R.color.bottom_button_color))
             (view as Button).setTextColor(resources.getColor(R.color.white))
 
-            if (it.isAdded) {
+            if (it!!.isAdded) {
                 supportFragmentManager.beginTransaction().hide(currentFragment).show(it).commit()
             } else {
                 supportFragmentManager.beginTransaction().hide(currentFragment)
@@ -103,7 +103,7 @@ class MainActivity : FragmentActivity() {
         Log.d(TAG, "close camera")
 
         // 移除Flutter容器
-        supportFragmentManager.beginTransaction().remove(cameraFragment).commit()
+        supportFragmentManager.beginTransaction().remove(cameraFragment!!).commit()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

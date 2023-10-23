@@ -82,7 +82,7 @@ class CameraPageController extends GetxController {
       recording = true;
       _cameraController?.startVideoRecording();
     }
-    // todo: 上传服务端
+    // 在这之后,上传服务端操作
   }
 
   void onSwitchFlash() {

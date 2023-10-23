@@ -10,6 +10,8 @@ class ChannelUtil {
   }
 
   static popRouteNumber(int pageLength) {
-    methodChannel.invokeMethod("popRouteNumber", pageLength);
+    methodChannel
+        .invokeMethod("popRouteNumber", pageLength)
+        .then((value) => print("ChannelUtil popRouteNumber: $value" )); // 打印原生返回值
   }
 }

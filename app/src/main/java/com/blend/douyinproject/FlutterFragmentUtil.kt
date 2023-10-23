@@ -17,8 +17,8 @@ object FlutterFragmentUtil {
     var mineMethodChannel: MethodChannel? = null
 
     fun createFlutterFragment(
-        context: Context, name: String, initRoute: String = "/",
-    ): FlutterFragment {
+        context: Context, name: String, initRoute: String = "/", applicationCreate: Boolean = false
+    ): FlutterFragment? {
         val id = "${MainActivity.ENGINE_ID}_$name"
         // 从缓存中获取FlutterEngine
         var flutterEngine = FlutterEngineCache.getInstance().get(id)
@@ -44,11 +44,16 @@ object FlutterFragmentUtil {
             )
 
             FlutterEngineCache.getInstance().put(id, flutterEngine)
-            if (name == "mine") {
-                mineMethodChannel = setMethodChannels(context, flutterEngine)
-            } else {
-                setMethodChannels(context, flutterEngine)
-            }
+        }
+
+        if (applicationCreate) {
+            return null
+        }
+
+        if (name == "mine") {
+            mineMethodChannel = setMethodChannels(context, flutterEngine!!)
+        } else {
+            setMethodChannels(context, flutterEngine!!)
         }
 
         // 使用工厂方法 withCachedEngine() 实例化 FlutterFragment
@@ -67,6 +72,7 @@ object FlutterFragmentUtil {
                     (context as MainActivity).closeCamera()
                 }
                 POP_ROUTE_NUMBER -> {
+                    result.success(true)    // 返回给Flutter端结果
                     (context as MainActivity).popRouteNumber(call.arguments)
                 }
                 else -> result.notImplemented()
