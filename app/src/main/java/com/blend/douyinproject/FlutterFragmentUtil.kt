@@ -11,7 +11,10 @@ import io.flutter.plugin.common.MethodChannel
 object FlutterFragmentUtil {
 
     private const val CLOSE_CAMERA = "closeCamera"
+    private const val POP_ROUTE_NUMBER = "popRouteNumber"
     private const val TAG = "FlutterFragmentUtil"
+
+    var mineMethodChannel: MethodChannel? = null
 
     fun createFlutterFragment(
         context: Context, name: String, initRoute: String = "/",
@@ -22,18 +25,30 @@ object FlutterFragmentUtil {
 
         // 如果没有则新建一个FlutterEngine
         if (null == flutterEngine) {
-            flutterEngine = FlutterEngine(context)
+//            flutterEngine = FlutterEngine(context)
+//
+//            // 设置初始路由
+//            flutterEngine.navigationChannel.setInitialRoute(initRoute)
+//
+//            flutterEngine.dartExecutor.executeDartEntrypoint(
+//                // 创建默认的Dart入口点
+//                DartExecutor.DartEntrypoint.createDefault()
+//            )
 
-            // 设置初始路由
-            flutterEngine.navigationChannel.setInitialRoute(initRoute)
-
-            flutterEngine.dartExecutor.executeDartEntrypoint(
-                // 创建默认的Dart入口点
-                DartExecutor.DartEntrypoint.createDefault()
+            // 使用FlutterEngineGroup创建FlutterEngine
+            val app = context.applicationContext as BaseApplication
+            flutterEngine = app.engineGroup.createAndRunEngine(
+                context,
+                DartExecutor.DartEntrypoint.createDefault(),
+                initRoute
             )
 
             FlutterEngineCache.getInstance().put(id, flutterEngine)
-            setMethodChannels(context, flutterEngine)
+            if (name == "mine") {
+                mineMethodChannel = setMethodChannels(context, flutterEngine)
+            } else {
+                setMethodChannels(context, flutterEngine)
+            }
         }
 
         // 使用工厂方法 withCachedEngine() 实例化 FlutterFragment
@@ -42,19 +57,21 @@ object FlutterFragmentUtil {
             .build() as FlutterFragment
     }
 
-    private fun setMethodChannels(context: Context, flutterEngine: FlutterEngine) {
-        MethodChannel(
-            flutterEngine.dartExecutor, "CommonChannel"
-        ).setMethodCallHandler { call, result ->
+    private fun setMethodChannels(context: Context, flutterEngine: FlutterEngine): MethodChannel {
+        val methodChannel = MethodChannel(flutterEngine.dartExecutor, "CommonChannel")
+        methodChannel.setMethodCallHandler { call, result ->
             Log.i(TAG, "method: ${call.method}, argument: ${call.arguments}")
 
             when (call.method) {
                 CLOSE_CAMERA -> {
                     (context as MainActivity).closeCamera()
                 }
-
+                POP_ROUTE_NUMBER -> {
+                    (context as MainActivity).popRouteNumber(call.arguments)
+                }
                 else -> result.notImplemented()
             }
         }
+        return methodChannel
     }
 }

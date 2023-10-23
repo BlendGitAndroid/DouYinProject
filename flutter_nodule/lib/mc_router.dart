@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_nodule/channel_util.dart';
 import 'package:flutter_nodule/page/friend_page/friend_page.dart';
 import 'package:flutter_nodule/page/message_page/message_page.dart';
 import 'package:flutter_nodule/page/mine_page/mine_page.dart';
@@ -58,6 +59,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
     if (params != null) {
       _boolResultCompleter.complete(params);
     }
+    ChannelUtil.popRouteNumber(_pages.length);
     if (_canPop()) {
       _pages.removeLast();
       // 通知路由栈，Page列表已经修改了
@@ -147,6 +149,11 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
   }
 
   Future<bool> _confirmExit() async {
+
+    // todo:这里为Null为什么
+    if (navigatorKey == null || navigatorKey.currentContext == null) {
+      return true;
+    }
     // showDialog方法，用于打开对话框，参数context表示上下文，builder表示对话框构造器
     final result = await showDialog<bool>(
       context: navigatorKey.currentContext!,

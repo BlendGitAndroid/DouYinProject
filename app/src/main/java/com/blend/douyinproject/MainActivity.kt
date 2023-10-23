@@ -3,9 +3,8 @@ package com.blend.douyinproject
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -16,6 +15,8 @@ import com.blend.douyinproject.page.VideoPageFragment
 class MainActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private var flutterPageNumber: Int = 0
 
     companion object {
         const val ENGINE_ID = "engineID"
@@ -104,4 +105,31 @@ class MainActivity : FragmentActivity() {
         // 移除Flutter容器
         supportFragmentManager.beginTransaction().remove(cameraFragment).commit()
     }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event?.repeatCount == 0 && FlutterFragmentUtil.mineMethodChannel != null) {
+            FlutterFragmentUtil.mineMethodChannel?.invokeMethod("popRoute", null)
+            return true
+        } else {
+            startActivityToHome()
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    fun popRouteNumber(number: Any) {
+        val num = number as Int
+        flutterPageNumber = num
+        if (flutterPageNumber <= 1) {
+            startActivityToHome()
+        }
+    }
+
+    private fun startActivityToHome() {
+        val home = Intent(Intent.ACTION_MAIN)
+        home.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        home.addCategory(Intent.CATEGORY_HOME)
+        startActivity(home)
+    }
+
+
 }

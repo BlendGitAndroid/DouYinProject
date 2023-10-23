@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'channel_util.dart';
 import 'mc_router.dart';
 
 MCRouter router = MCRouter();
@@ -14,7 +15,8 @@ void main() {
   init();
 }
 
-String sdcardPath = '/storage/emulated/0/Android/data/com.blend.douyinproject/files';
+String sdcardPath =
+    '/storage/emulated/0/Android/data/com.blend.douyinproject/files';
 
 init() {
   // 初始化页面路由，获取Native传递的参数，放入路由表
@@ -35,6 +37,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ChannelUtil.methodChannel.setMethodCallHandler((call) async {
+      switch (call.method) {
+        case 'popRoute':
+          router.popRoute();
+          break;
+      }
+    });
+
     // GetX改造步骤：1、修改MaterialApp成GetMaterialApp
     return GetMaterialApp(
       title: 'Flutter Demo',
