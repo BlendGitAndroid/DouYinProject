@@ -41,6 +41,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
 
   // 创建了Navigator作为路由的管理者，并设置了两个主要参数pages和onPopPage，其中pages是一个
   // 存放Page对象的列表；当路由被pop时，onPopPage会被回调，可在此处理路由退栈的逻辑。
+  // todo: WillPopScope在这里也不起作用,不知道是什么原因,只能采用接口回调的方式了
   @override
   Widget build(BuildContext context) {
     return Navigator(key: navigatorKey, pages: _pages, onPopPage: _onPopPage);

@@ -1,10 +1,13 @@
 package com.blend.douyinproject
 
+import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -47,6 +50,8 @@ class MainActivity : FragmentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        changeFullScreen(this, true)
+
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, homeFragment)
             .commit()
 
@@ -60,10 +65,49 @@ class MainActivity : FragmentActivity() {
                 supportFragmentManager.beginTransaction().show(cameraFragment!!).commit()
             } else {
                 // 添加至页面中
-                supportFragmentManager.beginTransaction().add(R.id.camera_container, cameraFragment!!)
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.camera_container, cameraFragment!!)
                     .commit()
             }
         }
+    }
+
+    private fun changeFullScreen(activity: Activity, isFullscreen: Boolean) {
+        val decorView = activity.window.decorView
+        var flag = decorView.systemUiVisibility
+        if (isFullscreen) {
+            // 状态栏隐藏
+            flag = flag or View.SYSTEM_UI_FLAG_FULLSCREEN
+            // 导航栏隐藏
+//            flag = flag or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            // 布局延伸到导航栏
+//            flag = flag or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            // 布局延伸到状态栏
+            flag = flag or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            // 全屏时,增加沉浸式体验
+            flag = flag or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            //  部分国产机型适用.不加会导致退出全屏时布局被状态栏遮挡
+            // activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            // android P 以下的刘海屏,各厂商都有自己的适配方式,具体在manifest.xml中可以看到
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val pa = activity.window.attributes
+                pa.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+                activity.window.attributes = pa
+            }
+        } else {
+            flag = flag and View.SYSTEM_UI_FLAG_FULLSCREEN.inv()
+//            flag = flag and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION.inv()
+            flag = flag and View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN.inv()
+//            flag = flag and View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION.inv()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val pa = activity.window.attributes
+                pa.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
+                activity.window.attributes = pa
+            }
+        }
+        decorView.systemUiVisibility = flag
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

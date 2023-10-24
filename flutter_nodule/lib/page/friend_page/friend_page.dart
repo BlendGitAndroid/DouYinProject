@@ -40,6 +40,7 @@ class _FriendPageState extends State<FriendPage>
       decoration: const BoxDecoration(color: Colors.black),
       child: Column(
         children: <Widget>[
+          const SizedBox(height: 30),
           Container(
             color: Colors.black87,
             child: TabBar(

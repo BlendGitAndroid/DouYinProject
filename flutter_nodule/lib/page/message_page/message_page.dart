@@ -18,7 +18,7 @@ class _MessagePageState extends State<MessagePage> {
       body: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+            padding: EdgeInsets.only(left: 10, top: 40, right: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
